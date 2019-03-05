@@ -1,17 +1,39 @@
-﻿@{
+﻿@using Store.Models
+@model ContactModel
+
+@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(m => m.ConcreteMark)
+    <br />
+    <input type="submit" value="Get countries Qty">
+}
+<br />
+<hr />
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+@if (Model != null)
+{
+    
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>ProducersIds</td>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Countries)
+    {
+      
+    <tr>
+        <td>@item.Id</td>
+        <td>@item.Name</td>
+        <td>@item.ProducersId.Select(id=>id.ToString()).Aggregate("",(prev,next)=>prev+" "+next)</td>
+    </tr> 
+
+    }
+</table>
+}

@@ -37,5 +37,12 @@ namespace Store.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Contact(ContactModel model)
+        {
+            model.Countries = bll.GetCountriesByConcreteMark(model.ConcreteMark);
+
+            return View(model);
+        }
     }
 }
