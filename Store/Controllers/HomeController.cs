@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogicLayer;
+using Store.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace Store.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly MyBll bll = new MyBll();
         public ActionResult Index()
         {
             return View();
@@ -15,9 +18,17 @@ namespace Store.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            var result = bll.GetCountriesByConcreteMark("sddd");
+
 
             return View();
+        }
+        [HttpPost]
+        public ActionResult About(AboutModel model)
+        {
+            var result = bll.GetProducersCountByConcreteMark(model.ConcreteMark);
+            model.Quantity = result;
+            return View(model);
         }
 
         public ActionResult Contact()
