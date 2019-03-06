@@ -54,6 +54,7 @@
     <Compile Include="ConcreteMarket.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="CustomInitializer.cs" />
+    <Compile Include="IMyDal.cs" />
     <Compile Include="MyDal.cs" />
     <Compile Include="Producer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

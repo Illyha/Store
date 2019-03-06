@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class MyDal
+    public class MyDal : IMyDal
     {
-        private readonly ConcreteMarket ctx = new ConcreteMarket(); 
+        public MyDal(DbContext ctx)
+        {
+            this.ctx = ctx;
+        }
+        private readonly DbContext ctx;// = new ConcreteMarket(); 
         public int GetProducersCountByConcreteMark(string concreteMark)
         {
-            return ctx.Concretes
+            return ctx.Set<Concrete>()
                 .Where(c => c.Mark == concreteMark)//
                 .Select(p => p.Producer)//
                 .Distinct()
@@ -20,13 +22,12 @@ namespace DataAccessLayer
 
         public ICollection<Country>GetCountriesByConcreteMark(string concreteMark)
         {
-            return ctx.Concretes
+            return ctx.Set<Concrete>()
                  .Where(c => c.Mark == concreteMark) //
                  .Select(p => p.Producer.Country)
                  .Distinct().ToList();
                  
         }
-
 
     }
 }
